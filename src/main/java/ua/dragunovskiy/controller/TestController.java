@@ -11,11 +11,12 @@ import java.util.HashMap;
 public class TestController {
 
     @GetMapping("/")
-    public HashMap<String, String> index() {
+    public HashMap<String, String> index() throws ClassNotFoundException {
         OAuth2User user = ((OAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         HashMap<String, String> userData = new HashMap<>();
         userData.put("hello", user.getAttribute("name"));
         userData.put("email is: ", user.getAttribute("email"));
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         return userData;
     }
 }
